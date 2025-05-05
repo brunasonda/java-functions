@@ -63,7 +63,8 @@ public class DocComments {
  * Function name: index
  *
  * Inside the function:
- * 1. Return a string with the results and document it.
+ * @param bmi Calcula el imc.
+ * @return a string with the results and document it.
  *     Clasificación índice de masa corportal rango - kg/m2
  *     Delgadez severa	< 16
  *     Delgadez moderada	16 - 17
