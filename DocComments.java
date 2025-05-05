@@ -94,9 +94,4 @@ public static String index(double bmi) {
         return "Obeso Clase III";
     }
 }
-
-
-
-
-
 }
