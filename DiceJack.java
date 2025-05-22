@@ -1,7 +1,8 @@
-public class DiceJack {
-    public static void main(String[] args) {
+import java.util.Scanner;
+import java.util.Random;
 
-        /* 
+public class DiceJack {
+        /*
         Reglas del juego:
         - El usuario debe escoger 3 números entre 1 y 6 (incluidos).
         - El usuario debe lanzar los dados una vez, el resultado serán 3 números aleatorios.
@@ -28,66 +29,113 @@ public class DiceJack {
         - Imprimir la suma de los números escogidos por el usuario y la suma de los números que salieron en los dados.
         - Imprimir si el usuario ganó o perdió.
         */
+
+    /**
+     * Function name: isLessThanOne
+     *
+     * @param num1 (int)
+     * @param num2 (int)
+     * @param num3 (int)
+     * @return (boolean)
+     * <p>
+     * Inside the function:
+     * 1. check if numbers are less than 1
+     */
+
+    public static boolean isLessThanOne(int num1, int num2, int num3) {
+        return num1 < 1 || num2 < 1 || num3 < 1;
     }
 
 
     /**
-     * 
-     * Function name: isLessThanOne
-     * 
-     * @param num1 (int)
-     * @param num2 (int)
-     * @param num3 (int)
-     * @return (boolean)
-     * 
-     * Inside the function:
-     * 1. check if numbers are less than 1
-     */
-    
-    // Escribe tu código aquí
-
-
-    /**
-     * 
      * Function name: isHigherThanSix
-     * 
+     *
      * @param num1 (int)
      * @param num2 (int)
      * @param num3 (int)
      * @return (boolean)
-     * 
+     * <p>
      * Inside the function:
      * 1. Check if numbers are greater than 6
      */
 
-    // Escribe tu código aquí
+    public static boolean isHigherThanSix(int num1, int num2, int num3) {
+        return num1 > 6 || num2 > 6 || num3 > 6;
+    }
 
 
     /**
-     * 
      * Function name: userWon
-     * 
-     * @param sumNumbers (int)
+     *
+     * @param sumNumbers   (int)
      * @param sumDiceRolls (int)
      * @return (boolean)
-     * 
+     * <p>
      * Inside the function:
-     * 1. check if user numbers are greater than computer numbers and the difference between user numbers and computer numbers are less than 5. 
+     * 1. check if user numbers are greater than computer numbers and the difference between user numbers and computer numbers are less than 5.
      */
 
-    // Escribe tu código aquí
+    public static boolean userWon(int sumNumbers, int sumDiceRolls) {
+        return sumNumbers > sumDiceRolls && (sumNumbers - sumDiceRolls) < 5;
+    }
 
 
     /**
      * Function name: rollDice
-     * 
+     *
      * @return (int)
-     * 
+     * <p>
      * Inside the function:
      * 1. get random number between 1 and 6
      */
 
-    // Escribe tu código aquí
+    public static int rollDice() {
+        Random random = new Random();
+        return random.nextInt(6) + 1;
+    }
 
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
+        System.out.println("Escoge 3 números entre 1 y 6.");
+
+        System.out.print("Número 1: ");
+        int num1 = input.nextInt();
+
+        System.out.print("Número 2: ");
+        int num2 = input.nextInt();
+
+        System.out.print("Número 3: ");
+        int num3 = input.nextInt();
+
+        if (isLessThanOne(num1, num2, num3) || isHigherThanSix(num1, num2, num3)) {
+            System.out.println("¡Número inválido! Solo se aceptan números entre 1 y 6.");
+            System.exit(0);
+        }
+
+        System.out.print("¿Deseas lanzar los dados? (s/n): ");
+        String respuesta = input.next();
+
+        if (!respuesta.equalsIgnoreCase("s")) {
+            System.out.println("Has salido del juego.");
+            System.exit(0);
+        }
+
+        int random1 = rollDice();
+        int random2 = rollDice();
+        int random3 = rollDice();
+
+        int sumUser = num1 + num2 + num3;
+        int sumDices = random1 + random2 + random3;
+
+        System.out.println("Tus números suman: " + sumUser);
+        System.out.println("Dados: " + random1 + ", " + random2 + ", " + random3);
+        System.out.println("La suma de los dados es: " + sumDices);
+
+        if (userWon(sumUser, sumDices)) {
+            System.out.println("¡Acceso concedido! Has ganado.");
+        } else {
+            System.out.println("No has ganado.");
+        }
+    }
 }
